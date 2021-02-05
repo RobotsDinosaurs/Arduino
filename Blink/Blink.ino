@@ -1,3 +1,13 @@
+/*
+  Blink
+
+  Turns an LED on for one second, then off for three seconds, repeatedly.
+
+  Arduino UNO has an on-board LED attached to digital pin 13. 
+
+  YT link: TODO
+*/
+
 #include <Arduino.h>
 
 #ifndef LED_PIN

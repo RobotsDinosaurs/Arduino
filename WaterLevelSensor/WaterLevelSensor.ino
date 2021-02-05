@@ -1,3 +1,15 @@
+/*
+  WaterLevelSensor
+
+  Gets a reading from a sensor and outputs the level of the water on a serial monitor. 
+
+  One commonly known issue with water level sensors is their short lifespan when exposed to a moist environment. 
+  Having power applied to the probe constantly speeds the rate of corrosion significantly.
+  To overcome this, do not power the sensor constantly, but power it only when you take the readings.
+
+  YT link: TODO
+*/
+
 #include <Arduino.h>
 
 // Sensor pins
@@ -20,10 +32,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-//However, one commonly known issue with these sensors is their short lifespan when exposed to a moist environment. 
-//Having power applied to the probe constantly speeds the rate of corrosion significantly.
-//To overcome this, we recommend that you do not power the sensor constantly, but power it only when you take the readings.
-
 void loop()
 {
     digitalWrite(sensorPower, HIGH);  // Turn the sensor ON
@@ -33,6 +41,7 @@ void loop()
     sprintf(printBuffer, "Value: %d", value);      
     Serial.println(printBuffer);
     
+    // Do not power the sensor constantly, but power it only when you take the readings.  
     digitalWrite(sensorPower, LOW);   // Turn the sensor OFF
 
     if (((HistoryValue>=value) && ((HistoryValue - value) > margin_allowed)) || ((HistoryValue<value) && ((value - HistoryValue) > margin_allowed)))
