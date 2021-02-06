@@ -1,7 +1,7 @@
 /*
   WaterLevelSensor
 
-  Gets a reading from a sensor and outputs the level of the water on a serial monitor. 
+  Gets a reading from a sensor and outputs the value and percentage of the level of water on a serial monitor. 
 
   One commonly known issue with water level sensors is their short lifespan when exposed to a moist environment. 
   Having power applied to the probe constantly speeds the rate of corrosion significantly.
@@ -13,14 +13,17 @@
 #include <Arduino.h>
 
 // Sensor pins
-#define sensorPower 7
+#define sensorPower 5
 #define sensorPin A0
 
 // Value for storing water level
 int value = 0;
-int HistoryValue = 0;
 char printBuffer[128];
-int margin_allowed = 2;
+
+// water level sensor calibration values
+const int airValue = 0;   // value in the air 
+const int waterValue = 250;  // value in a cup full of water
+int waterLevelPercentage = 0;
 
 void setup() {
    // Set D7 as an OUTPUT
@@ -38,32 +41,12 @@ void loop()
     delay(10);              // wait 10 milliseconds
   
     value = analogRead(sensorPin); // get adc value
-    sprintf(printBuffer, "Value: %d", value);      
+    waterLevelPercentage = map(value, airValue, waterValue, 0, 100);
+    sprintf(printBuffer, "Value: %d, %d%%", value, waterLevelPercentage);      
     Serial.println(printBuffer);
     
     // Do not power the sensor constantly, but power it only when you take the readings.  
     digitalWrite(sensorPower, LOW);   // Turn the sensor OFF
-
-    if (((HistoryValue>=value) && ((HistoryValue - value) > margin_allowed)) || ((HistoryValue<value) && ((value - HistoryValue) > margin_allowed)))
-    {
-      if (value<=120){ 
-        Serial.println("Water level: Empty!"); 
-      }
-      else if (value>120 && value<=135){ 
-        Serial.println("Water level: 0 to 0.5 inch"); 
-      }
-      else if (value>135 && value<=150){ 
-        Serial.println("Water level: 0.5 to 1 inch"); 
-      }
-      else if (value>150 && value<=165){ 
-        Serial.println("Water level: 1 to 1.5 inch"); 
-      }
-      else if (value>165){ 
-        Serial.println("Water level: 1.5 to 1.7 inches"); 
-      }
-
-      HistoryValue = value;
-    }
     
     delay(5000);
 }
