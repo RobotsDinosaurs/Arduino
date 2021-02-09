@@ -3,8 +3,6 @@
 
   Gets a reading from a sensor and outputs percentage (soil moisture) 
   and condition ("Wet"/"Moist"/"Dry") on an LCD display and serial monitor. 
-
-  YT link: TODO
 */
 
 #include <Arduino.h>
@@ -12,7 +10,7 @@
 #include <LiquidCrystal.h>
 
 // Sensor pins
-#define sensorPower 7
+#define sensorPower 5
 #define sensorPin A0
 
 int value = 0;
@@ -30,7 +28,6 @@ int soilMoisturePercentage = 0;
 
 void setup()
 {
-  // Set D7 as an OUTPUT
   pinMode(sensorPower, OUTPUT);
   
   // Set to LOW so no power flows through the sensor
@@ -47,7 +44,7 @@ void setup()
 void loop()
 {
     digitalWrite(sensorPower, HIGH);  // Turn the sensor ON
-    delay(10);              // wait 10 milliseconds
+    delay(1000);              // wait 1000 milliseconds
   
     value = analogRead(sensorPin); // get adc value
     sprintf(printBuffer, "Value: %d", value);      

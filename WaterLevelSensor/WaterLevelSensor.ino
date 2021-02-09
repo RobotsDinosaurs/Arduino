@@ -1,13 +1,8 @@
 /*
   WaterLevelSensor
 
-  Gets a reading from a sensor and outputs the value and percentage of the level of water on a serial monitor. 
-
-  One commonly known issue with water level sensors is their short lifespan when exposed to a moist environment. 
-  Having power applied to the probe constantly speeds the rate of corrosion significantly.
-  To overcome this, do not power the sensor constantly, but power it only when you take the readings.
-
-  YT link: TODO
+  Gets a reading from a sensor and outputs the value and percentage of the level of water 
+  on a serial monitor. 
 */
 
 #include <Arduino.h>
@@ -20,13 +15,7 @@
 int value = 0;
 char printBuffer[128];
 
-// water level sensor calibration values
-const int airValue = 0;   // value in the air 
-const int waterValue = 250;  // value in a cup full of water
-int waterLevelPercentage = 0;
-
 void setup() {
-   // Set D7 as an OUTPUT
   pinMode(sensorPower, OUTPUT);
   
   // Set to LOW so no power flows through the sensor
@@ -38,11 +27,28 @@ void setup() {
 void loop()
 {
     digitalWrite(sensorPower, HIGH);  // Turn the sensor ON
-    delay(10);              // wait 10 milliseconds
+    delay(1000);              // wait 1000 milliseconds
   
     value = analogRead(sensorPin); // get adc value
-    waterLevelPercentage = map(value, airValue, waterValue, 0, 100);
-    sprintf(printBuffer, "Value: %d, %d%%", value, waterLevelPercentage);      
+    sprintf(printBuffer, "Value: %d", value);      
+    
+    //values based on calibration
+    if (value<=120){ 
+      sprintf(printBuffer+strlen(printBuffer), "= 0%%");
+    }
+    else if (value>120 && value<=135){ 
+      sprintf(printBuffer+strlen(printBuffer), "= 0%% - 25%%");
+    }
+    else if (value>135 && value<=145){ 
+      sprintf(printBuffer+strlen(printBuffer), "= 25%% - 50%%");
+    }
+    else if (value>145 && value<=150){ 
+      sprintf(printBuffer+strlen(printBuffer), "= 50%% - 75%%");
+    }
+    else if (value>150){ 
+      sprintf(printBuffer+strlen(printBuffer), "= 75%% - 100%%");
+    }
+
     Serial.println(printBuffer);
     
     // Do not power the sensor constantly, but power it only when you take the readings.  
