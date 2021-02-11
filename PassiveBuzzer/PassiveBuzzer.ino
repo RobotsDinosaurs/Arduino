@@ -13,7 +13,7 @@ void loop()
   for (int i = 0; i < numTones; i++) 
   {
     tone(buzzerPin, tones[i], 400); // generates a square wave of the specified frequency on buzzerPin for 400 ms
-    delay(500); // wait for 100 ms between subsequent sounds
+    delay(500); // wait for 500 ms between subsequent sounds
   }
   delay(1000); // wait for 1 second before playing sounds backwards
 
