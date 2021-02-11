@@ -1,0 +1,28 @@
+
+int ledPin = 5;
+int buttonONpin = 9;
+int buttonOFFpin = 8;
+
+void setup() 
+{
+  pinMode(ledPin, OUTPUT);
+  
+  //the default value for the input_pullup is HIGH
+  //unless pulled LOW by the action of pressing button
+  pinMode(buttonONpin, INPUT_PULLUP);  
+  pinMode(buttonOFFpin, INPUT_PULLUP);  
+}
+ 
+void loop() 
+{
+  // pressed the ON button
+  if (digitalRead(buttonONpin) == LOW)
+  {
+    digitalWrite(ledPin, HIGH);
+  }
+  // pressed the OFF button
+  if (digitalRead(buttonOFFpin) == LOW)
+  {
+    digitalWrite(ledPin, LOW);
+  }
+}
