@@ -1,3 +1,12 @@
+/*
+    Servo with Pot
+
+    Mapping the servo sweep to the potentiometer's movement. 
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
+
 #include <Servo.h>
 
 int potPin = 0;

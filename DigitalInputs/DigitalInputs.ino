@@ -1,3 +1,11 @@
+/*
+    Digital Inputs
+
+    Setting two push buttons as On/Off switches for an LED.
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
 
 int ledPin = 5;
 int buttonONpin = 9;

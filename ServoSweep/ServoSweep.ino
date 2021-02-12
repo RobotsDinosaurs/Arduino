@@ -1,3 +1,12 @@
+/*
+    Servo Sweep
+
+    Sweeping the servo in two directions.
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
+
 #include <Servo.h>
 
 int servoPin = 9;

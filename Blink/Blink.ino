@@ -4,6 +4,7 @@
     Blink the built-in LED in 1 second intervals (On/Off).
 */
 
+// remove this line if using Arduino IDE
 #include <Arduino.h>
 
 void setup() {

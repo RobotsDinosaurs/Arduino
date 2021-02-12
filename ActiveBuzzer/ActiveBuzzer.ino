@@ -1,3 +1,12 @@
+/*
+    Active Buzzer
+
+    Sets the buzzer On/Off for a defined time interval.
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
+
 int buzzerPin = 12; 
 
 void setup() {

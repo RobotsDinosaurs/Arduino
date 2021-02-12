@@ -5,6 +5,7 @@
   on a serial monitor. 
 */
 
+// remove this line if using Arduino IDE
 #include <Arduino.h>
 
 // Sensor pins

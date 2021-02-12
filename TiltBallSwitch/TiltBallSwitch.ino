@@ -1,3 +1,13 @@
+/*
+    Tilt Ball Switch
+
+    Indicate through the builtin LED the position of the tilt ball switch. 
+    Upper 30 angle to both sides = LED On. Other angles = LED Off. 
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
+
 int ledPin = 13;
 int tiltSwitchPin = 2;
 

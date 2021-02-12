@@ -1,3 +1,12 @@
+/*
+    Passive Buzzer
+
+    Plays a tune on a passive buzzer.
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
+
 int buzzerPin = 12;
  
 int numTones = 8;

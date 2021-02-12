@@ -5,7 +5,9 @@
   and condition ("Wet"/"Moist"/"Dry") on an LCD display and serial monitor. 
 */
 
+// remove this line if using Arduino IDE
 #include <Arduino.h>
+
 #include <Wire.h>
 #include <LiquidCrystal.h>
 

@@ -1,3 +1,11 @@
+/*
+    RGB LED
+
+    Fading colors of the spectrum on a single RGB LED. 
+*/
+
+// remove this line if using Arduino IDE
+#include <Arduino.h>
 
 // Define Pins
 #define BLUE 3
