@@ -1,19 +1,27 @@
-// CONNECTIONS:
-// DS1302 CLK/SCLK --> 5
-// DS1302 DAT/IO --> 4
-// DS1302 RST/CE --> 2
-// DS1302 VCC --> 3.3v - 5v
-// DS1302 GND --> GND
+/*
+    Real Time Clock Module DS1302
+
+    Displays date/time and RAM value on a serial monitor. 
+
+    Connections:
+    * CLK/SCLK --> 5
+    * DAT/IO --> 4
+    * RST/CE --> 2
+    * VCC --> 2v - 5v
+    * GND --> GND
+*/
 
 #include <ThreeWire.h>  
 #include <RtcDS1302.h>
 
-ThreeWire myWire(4,5,2); // IO, SCLK, CE
+ThreeWire myWire(4,5,2); // IO/DAT, SCLK/CLK, CE/RST
 RtcDS1302<ThreeWire> Rtc(myWire);
 
+// determine the size of an array dynamically
 #define countof(a) (sizeof(a) / sizeof(a[0]))
 
-const char data[] = "what time is it";
+// 30 chars is max, RAM is 31 Bytes, last char is null
+const char data[] = "twinkle twinkle little star...";
 
 void setup () 
 {
