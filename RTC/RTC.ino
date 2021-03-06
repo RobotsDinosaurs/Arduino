@@ -7,7 +7,7 @@
     * CLK/SCLK --> 5
     * DAT/IO --> 4
     * RST/CE --> 2
-    * VCC --> 2v - 5v
+    * VCC --> 2.0v - 5.5v
     * GND --> GND
 */
 
@@ -28,15 +28,18 @@ void setup ()
     Serial.begin(9600);
 
     Serial.print("compiled: ");
+    //__DATE__ is a preprocessor macro that expands to current date (at compile time) 
+    // in the form mmm dd yyyy (e.g. "Jan 14 2012"), as a string.
     Serial.print(__DATE__);
     Serial.println(__TIME__);
     
     Rtc.Begin();
 
     RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
+    
     printDateTime(compiled);
     Serial.println();
-
+    
     if (!Rtc.IsDateTimeValid()) 
     {
         Serial.println("RTC lost confidence in the DateTime!");
@@ -55,7 +58,7 @@ void setup ()
         Rtc.SetIsRunning(true);
     }
 
-    RtcDateTime now = Rtc.GetDateTime();
+    RtcDateTime now = Rtc.GetDateTime(); // always gets 24-hour format
     if (now < compiled) 
     {
         Serial.println("RTC is older than compile time!  (Updating DateTime)");
@@ -126,16 +129,22 @@ void loop ()
 
 void printDateTime(const RtcDateTime& dt)
 {
-    char datestring[20];
+    char datestring[23];
 
+    bool isPM = (dt.Hour() > 12);
+    // read the format string from the Flash memory
     snprintf_P(datestring, 
             countof(datestring),
-            PSTR("%02u/%02u/%04u %02u:%02u:%02u"),
+            // PSTR macro = pointer to a string 
+            // creating a PROGMEM array and returning its address
+            PSTR("%02u/%02u/%04u %02u:%02u:%02u %s"),
             dt.Month(),
             dt.Day(),
             dt.Year(),
-            dt.Hour(),
+            //Sutract 12, Exception: 12 AM = 00 in 24 hrs
+            isPM ? dt.Hour()-12 : (dt.Hour() == 0 ? 12 : dt.Hour()),
             dt.Minute(),
-            dt.Second() );
+            dt.Second(),
+            isPM ? "PM" : "AM" ); 
     Serial.print(datestring);
 }
